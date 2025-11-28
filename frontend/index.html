@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturation UOV - Signature Post-Quantique</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📄 Application de Facturation</h1>
+            <p class="subtitle">Avec Signature Numérique UOV (Unbalanced Oil and Vinegar)</p>
+        </header>
+
+        <!-- Dashboard Stats -->
+        <section class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalClients">0</div>
+                <div class="stat-label">Clients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalFactures">0</div>
+                <div class="stat-label">Factures</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="facturesSignees">0</div>
+                <div class="stat-label">Signées</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="montantTotal">0 FCFA</div>
+                <div class="stat-label">Montant Total</div>
+            </div>
+        </section>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('clients')">👥 Clients</button>
+            <button class="tab-btn" onclick="showTab('factures')">📋 Factures</button>
+            <button class="tab-btn" onclick="showTab('uov')">🔐 À propos UOV</button>
+        </div>
+
+        <!-- Tab: Clients -->
+        <section id="clients-tab" class="tab-content active">
+            <div class="section-header">
+                <h2>Gestion des Clients</h2>
+                <button class="btn btn-primary" onclick="showClientForm()">+ Nouveau Client</button>
+            </div>
+
+            <!-- Formulaire Client -->
+            <div id="client-form" class="form-container" style="display: none;">
+                <h3>Nouveau Client</h3>
+                <form onsubmit="createClient(event)">
+                    <div class="form-group">
+                        <label>Nom *</label>
+                        <input type="text" id="clientNom" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="clientEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" id="clientAdresse">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" id="clientTelephone">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Créer</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideClientForm()">Annuler</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Liste Clients -->
+            <div class="table-container">
+                <table id="clients-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients-list">
+                        <tr>
+                            <td colspan="5" class="no-data">Aucun client</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tab: Factures -->
+        <section id="factures-tab" class="tab-content">
+            <div class="section-header">
+                <h2>Gestion des Factures</h2>
+                <button class="btn btn-primary" onclick="showFactureForm()">+ Nouvelle Facture</button>
+            </div>
+
+            <!-- Formulaire Facture -->
+            <div id="facture-form" class="form-container" style="display: none;">
+                <h3>Nouvelle Facture</h3>
+                <form onsubmit="createFacture(event)">
+                    <div class="form-group">
+                        <label>Client *</label>
+                        <select id="factureClient" required>
+                            <option value="">Sélectionner un client</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea id="factureDescription" required></textarea>
+                    </div>
+
+                    <h4>Articles</h4>
+                    <div id="facture-items">
+                        <div class="item-row">
+                            <input type="text" placeholder="Description" class="item-desc" required>
+                            <input type="number" placeholder="Qté" class="item-qty" min="1" value="1" required>
+                            <input type="number" placeholder="Prix unitaire" class="item-price" min="0" step="0.01" required>
+                            <button type="button" class="btn-remove" onclick="removeItem(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="addItem()">+ Ajouter un article</button>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Créer</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideFactureForm()">Annuler</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Liste Factures -->
+            <div class="table-container">
+                <table id="factures-table">
+                    <thead>
+                        <tr>
+                            <th>N° Facture</th>
+                            <th>Client</th>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="factures-list">
+                        <tr>
+                            <td colspan="6" class="no-data">Aucune facture</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tab: UOV Info -->
+        <section id="uov-tab" class="tab-content">
+            <div class="uov-info">
+                <h2>🔐 Schéma de Signature UOV</h2>
+                <p class="subtitle">Unbalanced Oil and Vinegar - Cryptographie Post-Quantique</p>
+
+                <div class="info-card">
+                    <h3>Qu'est-ce que UOV ?</h3>
+                    <p>
+                        Le schéma UOV est un système de signature numérique basé sur la cryptographie multivariée,
+                        conçu pour résister aux attaques quantiques. Il fait partie des candidats du processus de
+                        standardisation NIST pour la cryptographie post-quantique.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Principe de Fonctionnement</h3>
+                    <ul>
+                        <li><strong>Variables Oil (o)</strong> : Ne peuvent pas se multiplier entre elles</li>
+                        <li><strong>Variables Vinegar (v)</strong> : Peuvent se multiplier entre elles et avec Oil</li>
+                        <li><strong>Déséquilibre</strong> : v &gt; o (d'où "Unbalanced")</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Processus de Signature</h3>
+                    <ol>
+                        <li><strong>Hachage</strong> : Le message est haché (SHA-256)</li>
+                        <li><strong>Choix aléatoire</strong> : Les variables Vinegar sont choisies aléatoirement</li>
+                        <li><strong>Résolution</strong> : Les variables Oil sont calculées</li>
+                        <li><strong>Transformation</strong> : Application de T⁻¹ pour obtenir la signature</li>
+                    </ol>
+                </div>
+
+                <div class="info-card">
+                    <h3>Vérification</h3>
+                    <p>
+                        La vérification consiste à calculer P(s) où P est la clé publique et s la signature,
+                        puis à comparer avec hash(message).
+                    </p>
+                    <p class="formula">P(s) = hash(message) ⇒ Signature valide ✓</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Paramètres de cette implémentation</h3>
+                    <ul>
+                        <li>Corps fini : GF(31)</li>
+                        <li>Variables Oil (o) : 5</li>
+                        <li>Variables Vinegar (v) : 10</li>
+                        <li>Total variables (n) : 15</li>
+                    </ul>
+                </div>
+
+                <div class="info-card security">
+                    <h3>🛡️ Sécurité</h3>
+                    <p>
+                        UOV résiste aux attaques quantiques car résoudre des systèmes d'équations quadratiques
+                        multivariées reste un problème NP-difficile, même pour les ordinateurs quantiques.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal Détails Facture -->
+        <div id="modal-facture" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 - École Nationale Supérieure Polytechnique de Yaoundé - Projet Cryptographie</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
