@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 from datetime import datetime
+from contextlib import asynccontextmanager
 import json
 from pathlib import Path
 
@@ -18,11 +19,21 @@ from database import get_db, init_db
 from models import Client, Facture
 from uov_service import generate_uov_keys, sign_message, verify_signature
 
+# Gestionnaire de cycle de vie de l'application
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Démarrage
+    init_db()
+    print("✅ Base de données initialisée")
+    yield
+    # Arrêt (si nécessaire)
+
 # Initialisation de l'application FastAPI
 app = FastAPI(
     title="Billing App with UOV Signature",
     description="Application de facturation avec signature numérique UOV (Unbalanced Oil and Vinegar)",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # Configuration CORS
@@ -33,12 +44,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Initialiser la base de données au démarrage
-@app.on_event("startup")
-async def startup_event():
-    init_db()
-    print("✅ Base de données initialisée")
 
 
 # ============== SCHÉMAS PYDANTIC ==============
