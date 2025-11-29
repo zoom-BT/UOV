@@ -44,23 +44,57 @@ Le schéma **UOV (Unbalanced Oil and Vinegar)** est un système de signature num
 
 ```
 UOV/
-├── backend/              # API FastAPI
-│   ├── app.py           # Application principale
-│   ├── models.py        # Modèles SQLAlchemy
-│   ├── database.py      # Configuration BDD
-│   ├── uov_service.py   # Service de signature UOV
-│   └── requirements.txt # Dépendances Python
+├── backend/                      # API FastAPI
+│   ├── app.py                   # Application principale
+│   ├── models.py                # Modèles SQLAlchemy
+│   ├── database.py              # Configuration BDD
+│   ├── uov_service.py           # Service de signature UOV
+│   └── requirements.txt         # Dépendances Python
 │
-├── frontend/            # Interface web
-│   ├── index.html       # Page principale
-│   ├── styles.css       # Styles CSS
-│   └── app.js          # Logique JavaScript
+├── frontend/                    # Interface web
+│   ├── index.html               # Page principale
+│   ├── styles.css               # Styles CSS
+│   └── app.js                  # Logique JavaScript
 │
-├── data/               # Base de données SQLite
-│   └── billing.db      # Généré automatiquement
+├── data/                       # Base de données SQLite
+│   └── billing.db              # Généré automatiquement
 │
+├── UOV_Billing_Notebook.ipynb  # 🆕 Notebook Jupyter/Colab/Kaggle
 └── README.md
 ```
+
+---
+
+## 📓 Version Notebook (Colab/Kaggle)
+
+**🆕 Nouveau !** Une version notebook interactive est disponible pour une exécution facile sur Google Colab ou Kaggle.
+
+### Caractéristiques du Notebook
+
+- ✅ **Interface Gradio** complète et interactive
+- ✅ **Tout-en-un** : Code UOV + Base de données + Interface graphique
+- ✅ **Prêt à l'emploi** : Installation automatique des dépendances
+- ✅ **Explications pédagogiques** intégrées
+- ✅ **Partage facile** : Lien public Gradio
+
+### Utilisation sur Google Colab
+
+1. Ouvrir le notebook `UOV_Billing_Notebook.ipynb` dans Colab
+2. Exécuter : `Runtime > Run all`
+3. L'interface Gradio s'ouvrira automatiquement avec un lien public
+
+### Utilisation sur Kaggle
+
+1. Uploader le notebook `UOV_Billing_Notebook.ipynb`
+2. Activer Internet : `Settings > Internet > On`
+3. Exécuter toutes les cellules
+
+### Fonctionnalités du Notebook
+
+- **Onglet 1 : Gestion des Clients** - Créer et lister les clients
+- **Onglet 2 : Gestion des Factures** - Créer des factures avec génération automatique des clés UOV
+- **Onglet 3 : Signature UOV** - Signer et vérifier les factures
+- **Onglet 4 : Démonstration** - Comprendre le processus UOV pas à pas
 
 ---
 
