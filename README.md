@@ -79,14 +79,24 @@ git clone <url-du-repo>
 cd UOV
 ```
 
-### Étape 2 : Installer les Dépendances
+### Étape 2 : Mettre à Jour pip (Recommandé)
+
+```bash
+# Windows
+python -m pip install --upgrade pip
+
+# Linux/macOS
+python3 -m pip install --upgrade pip
+```
+
+### Étape 3 : Installer les Dépendances
 
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
 
-### Étape 3 : Lancer le Serveur Backend
+### Étape 4 : Lancer le Serveur Backend
 
 ```bash
 python app.py
@@ -100,7 +110,7 @@ Vous devriez voir :
 INFO:     Uvicorn running on http://0.0.0.0:8000
 ```
 
-### Étape 4 : Ouvrir l'Interface Frontend
+### Étape 5 : Ouvrir l'Interface Frontend
 
 Ouvrez le fichier `frontend/index.html` dans votre navigateur :
 
