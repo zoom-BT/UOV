@@ -48,8 +48,8 @@ GET http://localhost:5000/api/clients
 # Créer un client
 POST http://localhost:5000/api/clients
 {
-    "nom": "Jean Dupont",
-    "email": "jean@example.com",
+    "nom": "Tagne Huaté",
+    "email": "tagne@example.com",
     "telephone": "+237 600 00 00 00"
 }
 ```
