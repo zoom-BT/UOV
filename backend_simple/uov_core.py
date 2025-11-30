@@ -44,13 +44,13 @@ class UOVSignature:
             for i in range(self.v):
                 for j in range(i, self.v):
                     c = secrets.randbelow(self.q)
-                    if c: poly['quad'][(i, j)] = c
+                    if c: poly['quad'][f"{i},{j}"] = c  # Convertir tuple en string
 
             # Vinegar-Oil
             for i in range(self.v):
                 for j in range(self.v, self.n):
                     c = secrets.randbelow(self.q)
-                    if c: poly['quad'][(i, j)] = c
+                    if c: poly['quad'][f"{i},{j}"] = c  # Convertir tuple en string
 
             # Linéaires
             for i in range(self.n):
@@ -81,7 +81,8 @@ class UOVSignature:
             val = poly['const']
 
             # Vinegar-Vinegar
-            for (i, j), c in poly['quad'].items():
+            for key, c in poly['quad'].items():
+                i, j = map(int, key.split(','))  # Parser la clé string
                 if i < self.v and j < self.v:
                     val += c * vinegar[i] * vinegar[j]
 
@@ -118,7 +119,8 @@ class UOVSignature:
                 val = poly['const']
 
                 # Quadratiques
-                for (i, j), c in poly['quad'].items():
+                for key, c in poly['quad'].items():
+                    i, j = map(int, key.split(','))  # Parser la clé string
                     val += c * s[i] * s[j]
 
                 # Linéaires
