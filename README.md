@@ -40,16 +40,102 @@ Le schéma **UOV (Unbalanced Oil and Vinegar)** est un système de signature num
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Versions Disponibles
+
+Ce projet propose **DEUX versions** selon vos besoins :
+
+### 🎯 Version 1 : Backend Complet (Recommandé pour Production)
+📁 **Dossier:** `backend/` + `frontend/`
+
+**Caractéristiques:**
+- ✅ Interface web complète (HTML/CSS/JS)
+- ✅ API FastAPI professionnelle
+- ✅ ORM SQLAlchemy
+- ✅ Système complet de facturation
+- ✅ Gestion clients, factures, signatures
+
+**Quand l'utiliser:** Application complète, environnement de production
+
+### ⚡ Version 2 : Backend Simplifié (Recommandé pour Apprentissage)
+📁 **Dossier:** `backend_simple/`
+
+**Caractéristiques:**
+- ✅ **Ultra-léger** : Seulement 2 dépendances
+- ✅ **Simple** : ~200 lignes de code total
+- ✅ **Focus UOV** : Code clair et pédagogique
+- ✅ **Rapide** : Démarrage en 2 commandes
+- ✅ API Flask minimaliste
+- ✅ sqlite3 natif (pas d'ORM)
+
+**Quand l'utiliser:** Apprendre UOV, démonstrations, développement rapide
+
+---
+
+## ⚡ Démarrage Rapide
+
+### Option A : Backend Simplifié (2 minutes)
+
+```bash
+cd backend_simple
+pip install -r requirements.txt    # Installe Flask + CORS
+python app.py                      # Démarre le serveur
+```
+
+✅ **C'est tout !** Serveur actif sur http://localhost:5000
+
+**Tester rapidement:**
+```bash
+# Dans un autre terminal
+python test_api.py  # Lance les tests automatiques
+```
+
+**Ou avec les scripts:**
+```bash
+# Linux/Mac
+./start.sh
+
+# Windows
+start.bat
+```
+
+### Option B : Backend Complet (5 minutes)
+
+```bash
+# 1. Installer les dépendances
+cd backend
+pip install -r requirements.txt
+
+# 2. Lancer le backend
+python app.py
+
+# 3. Ouvrir le frontend
+cd ../frontend
+python -m http.server 8080
+```
+
+✅ Frontend sur http://localhost:8080
+
+---
+
+## 🏗️ Architecture Complète
 
 ```
 UOV/
-├── backend/                      # API FastAPI
+├── backend/                      # Version Complète (FastAPI)
 │   ├── app.py                   # Application principale
 │   ├── models.py                # Modèles SQLAlchemy
 │   ├── database.py              # Configuration BDD
 │   ├── uov_service.py           # Service de signature UOV
 │   └── requirements.txt         # Dépendances Python
+│
+├── backend_simple/              # 🆕 Version Simplifiée (Flask)
+│   ├── uov_core.py              # Cœur UOV (100 lignes)
+│   ├── app.py                   # API Flask (200 lignes)
+│   ├── requirements.txt         # 2 dépendances seulement
+│   ├── test_api.py              # Tests automatiques
+│   ├── start.sh                 # Démarrage Linux/Mac
+│   ├── start.bat                # Démarrage Windows
+│   └── README.md                # Documentation détaillée
 │
 ├── frontend/                    # Interface web
 │   ├── index.html               # Page principale
