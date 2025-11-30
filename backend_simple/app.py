@@ -315,43 +315,11 @@ def demo_uov():
     })
 
 
-# Servir le frontend
+# Servir l'interface de démonstration
 @app.route('/')
 def index():
-    """Page d'accueil"""
-    return """
-    <html>
-    <head><title>API UOV - Facturation</title></head>
-    <body style="font-family: Arial; max-width: 800px; margin: 50px auto; padding: 20px;">
-        <h1>🔐 API de Facturation avec Signature UOV</h1>
-        <p><strong>Status:</strong> ✅ Active</p>
-
-        <h2>Endpoints disponibles:</h2>
-        <ul>
-            <li><code>GET /api/health</code> - Santé de l'API</li>
-            <li><code>GET /api/stats</code> - Statistiques</li>
-            <li><code>GET/POST /api/clients</code> - Gestion clients</li>
-            <li><code>GET/POST /api/factures</code> - Gestion factures</li>
-            <li><code>POST /api/signature/signer</code> - Signer une facture</li>
-            <li><code>POST /api/signature/verifier</code> - Vérifier une signature</li>
-            <li><code>POST /api/demo/uov</code> - Démonstration UOV</li>
-        </ul>
-
-        <h2>À propos d'UOV</h2>
-        <p><strong>UOV (Unbalanced Oil and Vinegar)</strong> est un schéma de signature
-        numérique post-quantique basé sur la cryptographie multivariée.</p>
-
-        <ul>
-            <li>Corps fini: GF(31)</li>
-            <li>Variables Oil: 5</li>
-            <li>Variables Vinegar: 10</li>
-            <li>Total: 15 variables</li>
-        </ul>
-
-        <p><a href="/api/stats">📊 Voir les statistiques</a></p>
-    </body>
-    </html>
-    """
+    """Interface de démonstration interactive"""
+    return send_from_directory('.', 'demo.html')
 
 
 if __name__ == '__main__':
